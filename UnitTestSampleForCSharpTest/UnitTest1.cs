@@ -1,18 +1,14 @@
 using NUnit.Framework;
+using System;
 
 namespace UnitTestSampleForCSharpTest
 {   
     [TestFixture]
     public class Tests
     {
-        int a;
-        int b;
-
         [SetUp]
         public void Setup()
         {
-            this.a = 10;
-            this.b = 5;
         }
 
         [Test]
@@ -45,6 +41,19 @@ namespace UnitTestSampleForCSharpTest
         {
             Assert.AreEqual(a / b, 2);
             Assert.AreNotEqual(a / b, 3);
+        }
+
+        [Test]
+        [TestCase(null, 5)]
+        [TestCase(10, null)]
+        [TestCase(null, null)]
+        public void NullExceptionTest(int? a, int? b)
+        {
+            if(a == null || b == null)
+            {
+                Assert.Throws<NullReferenceException>(
+                () => { throw new NullReferenceException(); });
+            }
         }
     }
 }
